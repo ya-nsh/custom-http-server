@@ -28,6 +28,16 @@ const server = net.createServer(socket => {
             'Content-Length': echoedText.length,
           },
         });
+      } else if (path === '/user-agent') {
+        const userAgent = _headersAndBody[1].split('User-Agent: ').at(-1);
+        response = createResponse({
+          status: '200 OK',
+          body: userAgent,
+          headers: {
+            'Content-Type': 'text/plain',
+            'Content-Length': userAgent.length,
+          },
+        });
       } else {
         response = createResponse({
           status: '404 Not Found',
